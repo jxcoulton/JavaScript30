@@ -15,22 +15,29 @@
     // and we want to make a copy of it.
 
     // You might think we can just do something like this:
-
+    let team = players
     // however what happens when we update that array?
-
+    team[3] = "Brad"
     // now here is the problem!
-
+    console.log(players);
+    console.log(team);
+    // editing the team array also changes the players array because the team array is just referncing the players array and they are the same saved data
     // oh no - we have edited the original array too!
 
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
-
+    
     // one way
-
+    let team2 = players.slice();
+    
     // or create a new array and concat the old one in
-
+    let team3 = [].concat(players)
+    
     // or use the new ES6 Spread
+    let team4 = [...players];
+
+    let team5 = Array.from(players)
 
     // now when we update it, the original one isn't changed
 
@@ -39,12 +46,27 @@
     // with Objects
     const person = {
       name: 'Wes Bos',
-      age: 80
+      age: 80,
+      social: {
+        twitter: "@wesbos",
+        facebook: "wesbos.developer"
+      }
     };
 
     // and think we make a copy:
-
+    const cap = person;
     // how do we take a copy instead?
+    const cap2 = Object.assign({}, person, {number: 99})
+    const cap3 = {...person, number: 98, age: 12}
+    // adjusting the deeper object also changes the original. need a function to clone deep to be able to change without touching the original
+    cap3.social.twitter = "@coolman"
+    console.log(person, cap2, cap3);
+
+    //the cheap way to go around deep cloning :
+    const cap4 = JSON.parse(JSON.stringify(person));
+    cap4.social.twitter = "@bro"
+    console.log(person, cap4);
+
 
     // We will hopefully soon see the object ...spread
 
