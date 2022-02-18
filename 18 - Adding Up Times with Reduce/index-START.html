@@ -182,6 +182,32 @@
     </li>
   </ul>
 <script>
+const times = [...document.querySelectorAll("[data-time")]
+
+// const totalTime = times
+// .map((item) => item.dataset.time)
+// .map(timeCode => {
+//   const [mins, secs] = timeCode.split(":")
+//   return (+mins * 60) + +secs;
+//   console.log(mins, secs);
+// })
+// .reduce((a,b) => a + b)
+
+const totalTime = times.reduce((acc, cv) => {
+  const [mins, secs] = cv.dataset.time.split(":")
+  const totalSecs = +mins * 60 + +secs
+  return acc + totalSecs
+}, 0)
+
+let secondsLeft = totalTime;
+const hours = Math.floor(secondsLeft / 3600);
+secondsLeft = secondsLeft % 3600;
+
+const mins = Math.floor(secondsLeft / 60);
+secondsLeft = secondsLeft % 60;
+
+console.log(`${hours}:${mins}:${secondsLeft}`);
+
 </script>
 </body>
 </html>
